@@ -17,6 +17,18 @@ function deleteDoTo(event) {
   saveToDos()
 }
 
+function editToDo(event) {
+  const li = event.target.parentElement
+  const span = li.firstChild
+  const newTodo = prompt("Edit your todo", span.innerText)
+  if (newTodo) {
+    span.innerText = newTodo
+    const index = toDos.findIndex((todo) => todo.id === parseInt(li.id))
+    toDos[index].text = newTodo
+    saveToDos()
+  }
+}
+
 function paintToDo(newTodo) {
   const li = document.createElement("li")
   li.id = newTodo.id
@@ -28,6 +40,7 @@ function paintToDo(newTodo) {
   li.appendChild(span)
   li.append(button)
   toDoList.appendChild(li)
+  span.addEventListener("click", editToDo)
 }
 
 function handleToDoSubmit(event) {
